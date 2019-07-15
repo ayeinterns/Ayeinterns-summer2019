@@ -1,1 +1,3 @@
 To be deleted
+
+Do not accept pull requests containing this file. For testing only
