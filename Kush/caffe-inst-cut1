@@ -1,0 +1,28 @@
+#!/bin/bash
+#Todo: Add license info (GPL v2)
+#Todo: Add copyright notice – dual copyright AyeAI and authorization
+#Todo: Add change info with author name
+
+#Install default version on caffe distributed on Ubuntu
+sudo apt install caffe-cpu
+
+#Build caffe from Ubuntu sources
+sudo apt build-dep caffe-cpu
+#Caffe CPUONLY uses ATLAS for BLAS
+sudo apt install libatlas-base-dev
+
+apt-get source  caffe-cpu
+cd caffe-1.0.0/
+
+#Use sed or awk to modify CmakeLists.txt to
+# - turn on CPUONLY, turn off rest
+cp CMakeLists.txt CMakeLists.txt.orig
+cat CMakeLists.txt.orig | awk '/CPU_ONLY/ {if ($7 == "OFF)") $7 = "ON)"};/./ {print $0}' > CMakeLists.txt
+
+mkdir build
+cd build
+cmake ..
+make all
+#The following is a brute force for now and may 
+sudo make install
+make runtest
