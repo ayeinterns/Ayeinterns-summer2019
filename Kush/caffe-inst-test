@@ -1,5 +1,6 @@
-(C) Copyright AyeAI Consulting 2019
-Published under GNU GPL v2 license
+#!/bin/bash
+#(C) Copyright AyeAI Consulting 2019
+#Published under GNU GPL v2 license
 #TODO: Update with standard AyeAI platinum zone header
 
 #To execute this file run the following command on console (shell / command line), 
