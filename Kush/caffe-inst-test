@@ -1,0 +1,23 @@
+(C) Copyright AyeAI Consulting 2019
+Published under GNU GPL v2 license
+#TODO: Update with standard AyeAI platinum zone header
+
+#To execute this file run the following command on console (shell / command line), 
+#  preferably default bash, under Ubuntu 18.04 LTS 64-bit
+#  (without the preceeding '#' (hash)!)
+#
+# wget <TBD> && chmod 777 ./caffe-inst-test && ./caffe-inst-test 
+
+#Tested on x86_64
+
+#Authors: Abhishek Choudhary, Dr Srija Katta
+
+export flnm=temp_`date +%s`
+mkdir -p ~/$flnm
+pushd ~/$flnm
+wget https://raw.githubusercontent.com/ayeinterns/ayeinterns-summer2019/master/Kush/caffe-inst-cut1
+chmod 777 caffe-inst-cut1
+echo To see status execute tail -f `pwd`/results.txt
+./caffe-inst-cut1 >results.txt 2>&1
+tail -3 results.txt
+popd
