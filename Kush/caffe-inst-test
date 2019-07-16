@@ -6,7 +6,7 @@ Published under GNU GPL v2 license
 #  preferably default bash, under Ubuntu 18.04 LTS 64-bit
 #  (without the preceeding '#' (hash)!)
 #
-# wget <TBD> && chmod 777 ./caffe-inst-test && ./caffe-inst-test 
+# wget http://bit.ly/ayeai-caffe-inst-test && chmod 777 ./caffe-inst-test && ./caffe-inst-test 
 
 #Tested on x86_64
 
