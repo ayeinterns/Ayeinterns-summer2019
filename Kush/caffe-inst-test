@@ -23,10 +23,10 @@ echo To see status execute tail -f `pwd`/results.txt
 tail -3 results.txt
 
 #run some tutorial models
+pushd caffe-1.0.0
+
 wget https://raw.githubusercontent.com/ayeinterns/ayeinterns-summer2019/master/Kush/try-caffe-models
 chmod 777 try-caffe-models
-
-pushd caffe-1.0.0
 
 ./try-caffe-models
 
