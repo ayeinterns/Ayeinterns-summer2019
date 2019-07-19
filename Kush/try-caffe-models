@@ -7,4 +7,7 @@ pip3 install backports-functools_lru_cache
 wget https://raw.githubusercontent.com/ayeinterns/ayeinterns-summer2019/master/Kush/conv.prototxt
 wget https://raw.githubusercontent.com/ayeinterns/ayeinterns-summer2019/master/Kush/caffe-basic-model.py
 
+./scripts/download_model_binary.py models/bvlc_reference_caffenet
+./data/ilsvrc12/get_ilsvrc_aux.sh
+
 python3 caffe-basic-model.py
