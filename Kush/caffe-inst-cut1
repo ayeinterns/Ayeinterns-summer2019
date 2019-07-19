@@ -28,7 +28,11 @@ cd caffe-1.0.0/
 #Use sed or awk to modify CmakeLists.txt to
 # - turn on CPUONLY, turn off rest
 cp CMakeLists.txt CMakeLists.txt.orig
+
+#TODO: Explain what the awk command does, with links to a short note describing basic AWK skills
+#TODO: The articles should be written as markdown (.md) files on Github
 cat CMakeLists.txt.orig | awk '/CPU_ONLY/ {if ($7 == "OFF)") $7 = "ON)"};/./ {print $0}' > CMakeLists.txt
+
 
 mkdir build
 cd build
