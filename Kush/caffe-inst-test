@@ -14,8 +14,8 @@
 #Authors: Abhishek Choudhary, Dr Srija Katta
 
 export flnm=temp_`date +%s`
-mkdir -p ~/$flnm
-pushd ~/$flnm
+mkdir -p ./$flnm
+pushd ./$flnm
 wget https://raw.githubusercontent.com/ayeinterns/ayeinterns-summer2019/master/Kush/caffe-inst-cut1
 chmod 777 caffe-inst-cut1
 echo To see status execute tail -f `pwd`/results.txt
