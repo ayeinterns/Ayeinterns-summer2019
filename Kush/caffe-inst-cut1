@@ -26,3 +26,7 @@ make all
 #The following is a brute force for now and may 
 sudo make install
 make runtest
+
+sudo apt install python3-caffe-cpu
+
+wget <basic models py url>
