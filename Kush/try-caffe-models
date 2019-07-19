@@ -10,6 +10,8 @@ wget https://raw.githubusercontent.com/ayeinterns/ayeinterns-summer2019/master/K
 ./scripts/download_model_binary.py models/bvlc_reference_caffenet
 ./data/ilsvrc12/get_ilsvrc_aux.sh
 
-cd caffe-1.0.0
+pushd caffe-1.0.0
 
 python3 caffe-basic-model.py
+
+popd
