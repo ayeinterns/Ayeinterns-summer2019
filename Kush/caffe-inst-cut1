@@ -11,7 +11,18 @@ sudo apt build-dep caffe-cpu
 #Caffe CPUONLY uses ATLAS for BLAS
 sudo apt install libatlas-base-dev
 
+if [[ $(cat /etc/apt/sources.list | grep deb-src | grep -v ^# | wc -l) -lt 1 ]]
+then
+    echo Please enable software sources in software-properties-gtk
+    #TODO: Add echo for appropriate help URL file 
+    exit 0
+else
+    echo Found src URI
+fi
 apt-get source  caffe-cpu
+#TODO: Add test whether the caffe source folder was created
+#if [ -t caffe-1.0.0 ] then ...
+#Search for how to check the existence of a folder
 cd caffe-1.0.0/
 
 #Use sed or awk to modify CmakeLists.txt to
