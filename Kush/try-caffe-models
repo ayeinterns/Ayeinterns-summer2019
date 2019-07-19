@@ -1,7 +1,8 @@
 sudo apt install python3-caffe-cpu python3-pip
 
-wget <basic models py url>
-
 pip3 install scikit-learn
 pip3 install scikit-image
 pip3 install backports-functools_lru_cache
+
+wget https://raw.githubusercontent.com/ayeinterns/ayeinterns-summer2019/master/Kush/conv.prototxt
+wget https://raw.githubusercontent.com/ayeinterns/ayeinterns-summer2019/master/Kush/caffe-basic-model.py
