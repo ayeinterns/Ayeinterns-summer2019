@@ -1,4 +1,4 @@
-sudo apt install python3-caffe-cpu python3-pip
+sudo apt -y install python3-caffe-cpu python3-pip
 
 pip3 install scikit-learn
 pip3 install scikit-image

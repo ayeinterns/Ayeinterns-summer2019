@@ -4,12 +4,12 @@
 #Todo: Add change info with author name
 
 #Install default version on caffe distributed on Ubuntu
-sudo apt install caffe-cpu
+sudo apt -y install caffe-cpu
 
 #Build caffe from Ubuntu sources
-sudo apt build-dep caffe-cpu
+sudo apt -y build-dep caffe-cpu
 #Caffe CPUONLY uses ATLAS for BLAS
-sudo apt install libatlas-base-dev
+sudo apt -y install libatlas-base-dev
 
 if [[ $(cat /etc/apt/sources.list | grep deb-src | grep -v ^# | wc -l) -lt 1 ]]
 then
@@ -19,7 +19,7 @@ then
 else
     echo Found src URI
 fi
-apt-get source  caffe-cpu
+apt-get -y source  caffe-cpu
 #TODO: Add test whether the caffe source folder was created
 #if [ -t caffe-1.0.0 ] then ...
 #Search for how to check the existence of a folder
