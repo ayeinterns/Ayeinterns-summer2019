@@ -1,0 +1,50 @@
+Traffic Lights
+~~~~~~~~~~~~~~
+LISA traffic lights dataset
+http://cvrr.ucsd.edu/LISA/lisa-traffic-sign-dataset.html
+
+Create a LISA like database for India
+
+https://github.com/davidbrai/deep-learning-traffic-lights
+https://medium.com/free-code-camp/recognizing-traffic-lights-with-deep-learning-23dae23287cc
+
+https://github.com/bosch-ros-pkg
+
+Traffic lights dataset from Bosch
+https://www.youtube.com/watch?v=P7j6XFmImAg&feature=youtu.be
+https://github.com/bosch-ros-pkg/bstld
+https://www.youtube.com/watch?v=EztVEj2KnXk&feature=youtu.be
+
+http://host.robots.ox.ac.uk/pascal/VOC/
+
+
+
+
+Lane Detection
+~~~~~~~~~~~~~~
+https://github.com/topics/lane-detection
+
+https://github.com/amusi/awesome-lane-detection
+
+
+
+Pedestrian detection
+~~~~~~~~~~~~~~~~~~~~
+https://github.com/topics/pedestrian-detection
+
+
+Number plate / license plate detection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+https://github.com/topics/license-plate-recognition
+
+
+
+
+Medical
+~~~~~~~~
+
+https://www.kaggle.com/nih-chest-xrays/data
+
+https://openfmri.org/dataset/
+
+http://proceedings.mlr.press/v56/Choi16.pdf
