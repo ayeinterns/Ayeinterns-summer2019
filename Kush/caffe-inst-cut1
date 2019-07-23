@@ -37,7 +37,7 @@ cat CMakeLists.txt.orig | awk '/CPU_ONLY/ {if ($7 == "OFF)") $7 = "ON)"};/./ {pr
 mkdir build
 cd build
 cmake ..
-make all
+make -j4 all
 #The following is a brute force for now and may 
-sudo make install
-make runtest
+sudo make -j4 install
+make -j4 runtest
