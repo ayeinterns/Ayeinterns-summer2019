@@ -1,3 +1,12 @@
+#from https://christopher5106.github.io/deep/learning/2015/09/04/Deep-learning-tutorial-on-Caffe-Technology.html
+
+import numpy as np
+import matplotlib.pyplot as plt
+from PIL import Image
+import caffe
+
+caffe.set_mode_cpu()
+
 #load the model
 net = caffe.Net('models/bvlc_reference_caffenet/deploy.prototxt',
                 'models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel',
