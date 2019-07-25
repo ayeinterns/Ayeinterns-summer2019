@@ -48,3 +48,29 @@ https://www.kaggle.com/nih-chest-xrays/data
 https://openfmri.org/dataset/
 
 http://proceedings.mlr.press/v56/Choi16.pdf
+
+
+
+=============================================================
+
+Scripts to compile and install frameworks (cpu only, with gpu support, binary and from sources)
+
+caffe
+https://github.com/davidstutz/caffe-tools/blob/master/install_caffe.sh
+https://github.com/BVLC/caffe/wiki/Caffe-installing-script-for-ubuntu-16.04---support-Cuda-8
+https://www.ibm.com/support/knowledgecenter/en/SSC5ZE/com.ibm.vi.doc/config/t_inst_caffe_ubuntu.html
+https://caffe.berkeleyvision.org/install_apt_debian.html
+https://caffe.berkeleyvision.org/install_yum.html
+
+tf
+
+Keras
+
+AutoML
+
+Theano
+
+Torch / pytorch
+
+
+
