@@ -32,4 +32,8 @@ chmod 777 try-caffe-models
 
 popd
 
+# Now run the traffic lights model
+wget https://raw.githubusercontent.com/ayeinterns/ayeinterns-summer2019/master/Kush/run-tlights-model
+chmod 777 run-tlights-model
+
 popd
