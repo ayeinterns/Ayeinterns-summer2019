@@ -6,8 +6,15 @@ pip3 install backports-functools_lru_cache
 
 wget https://raw.githubusercontent.com/ayeinterns/ayeinterns-summer2019/master/Kush/conv.prototxt
 wget https://raw.githubusercontent.com/ayeinterns/ayeinterns-summer2019/master/Kush/caffe-basic-model.py
+wget https://raw.githubusercontent.com/ayeinterns/ayeinterns-summer2019/master/Kush/caffe-pretrained-model.py
 
 ./scripts/download_model_binary.py models/bvlc_reference_caffenet
 ./data/ilsvrc12/get_ilsvrc_aux.sh
 
+echo Running a basic model to calculate layer output and save weights
 python3 caffe-basic-model.py
+echo =======================================
+
+echo Pretrained model sample
+python3 caffe-pretrained-model.py
+echo =======================================
