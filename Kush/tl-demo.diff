@@ -1,0 +1,302 @@
+diff --git a/analysis/analyze-tlight b/analysis/analyze-tlight
+new file mode 100755
+index 0000000..ea666c9
+--- /dev/null
++++ b/analysis/analyze-tlight
+@@ -0,0 +1,2 @@
++wget https://upload.wikimedia.org/wikipedia/commons/b/b1/SCBD_Jakarta.jpg -O ../model/traffic_light_red_1.jpeg
++python3 sliding_patch.py
+diff --git a/analysis/sliding_patch.py b/analysis/sliding_patch.py
+new file mode 100644
+index 0000000..43d753e
+--- /dev/null
++++ b/analysis/sliding_patch.py
+@@ -0,0 +1,288 @@
++
++# coding: utf-8
++
++# In[1]:
++
++
++#get_ipython().magic('matplotlib inline')
++import caffe
++import numpy as np
++import matplotlib.pyplot as plt
++
++# set display defaults
++plt.rcParams['figure.figsize'] = (8, 8)        # large images
++plt.rcParams['image.interpolation'] = 'nearest'  # don't interpolate: show square pixels
++
++
++# In[2]:
++
++
++caffe.set_mode_cpu()
++
++
++# In[3]:
++
++
++from caffe.classifier import Classifier
++
++model_def = "../model/deploy.prototxt"
++#model_weights = "../model/train_squeezenet_trainval_manual_p2__iter_3817.caffemodel"
++model_weights = "../model/train_squeezenet_scratch_trainval_manual_p2__iter_8000.caffemodel"
++
++c = Classifier(
++    model_def, 
++    model_weights, 
++    mean=np.array([104, 117, 123]),
++    raw_scale=255,
++    channel_swap=(2,1,0),
++    image_dims=(256, 256))
++
++# set batch size
++BATCH_SIZE = 64
++c.blobs['data'].reshape(BATCH_SIZE, 3, c.blobs['data'].shape[2], c.blobs['data'].shape[3])
++c.blobs['prob'].reshape(BATCH_SIZE, 3)
++c.reshape()
++
++def class_idx_to_name(idx):
++    return ['none', 'red', 'green'][idx]
++
++
++# In[4]:
++
++
++import os, random
++
++def show_image_with_prediction(filename=None):
++    images_path = '../model/'
++    
++    if filename is None:
++        filename = random.choice(os.listdir(images_path))
++    
++    print(filename)
++    image = caffe.io.load_image(images_path + filename)
++    r = c.predict([image], oversample=False)
++    cls = r.argmax()
++    plt.imshow(image)
++    plt.axis('off')
++    print('predicted class is: %s with probability: %.4f' % (class_idx_to_name(cls), r.max()))
++    
++    return image, cls
++
++
++# In[5]:
++
++
++# f = random.choice(os.listdir(images_path))
++f = 'traffic_light_red_1.jpeg'
++image, cls = show_image_with_prediction(f)
++
++# In[6]:
++
++
++h, w, _ = image.shape
++print("height:", h, "width:", w)
++
++#TODO: Debug below
++exit()
++
++# In[7]:
++
++
++grey_rgb = [0.5, 0.5, 0.5]
++
++def create_patched_images(image, patch_size, step):
++    patched_images = []
++    patch_coords = []
++    
++    for i in xrange(-patch_size+1, h, step):
++        for j in xrange(-patch_size+1, w, step):
++            image_patched = image.copy()
++            x_slice = slice(max(i, 0), min(i + patch_size, h))
++            y_slice = slice(max(j, 0), min(j + patch_size, w))
++            image_patched[x_slice, y_slice] = grey_rgb
++            patched_images.append(image_patched)
++            patch_coords.append((x_slice, y_slice))
++    
++    return patched_images, patch_coords
++
++
++# In[ ]:
++
++
++step = 16
++patch_size = 32
++
++patched_images, patch_coords = create_patched_images(image, patch_size, step)
++
++
++# In[ ]:
++
++
++plt.imshow(patched_images[160])
++plt.axis('off')
++
++
++# In[ ]:
++
++
++print("num images:", len(patched_images))
++
++
++# In[ ]:
++
++
++results = c.predict(patched_images, oversample=False)[:, cls].flatten()
++
++
++# In[ ]:
++
++
++def create_heatmap(shape, results, patch_coords, patch_size, step):
++    num_patches_per_pixel = (patch_size / step) ** 2
++    
++    heat_map = np.zeros(shape)
++
++    for i, p in enumerate(results):
++        x_slice, y_slice = patch_coords[i]
++        heat_map[x_slice, y_slice] += p / float(num_patches_per_pixel)
++    
++    return heat_map
++
++
++# In[ ]:
++
++
++heat_map = create_heatmap(image.shape[:2], results, patch_coords, patch_size, step)
++
++
++# In[ ]:
++
++
++from mpl_toolkits.axes_grid1 import make_axes_locatable
++
++def add_color_bar(ax, im):
++    divider = make_axes_locatable(ax)
++    cax = divider.append_axes("right", size="5%", pad=0.05)
++    fig.colorbar(im, cax=cax)
++
++
++# In[ ]:
++
++
++fig, ax = plt.subplots()
++im = plt.imshow(heat_map, cmap=plt.cm.afmhot)
++add_color_bar(ax, im)
++
++
++# In[ ]:
++
++
++def plot_image_with_heatmap(image, heat_map, p_min=None, p_max=None):
++    fig, ax = plt.subplots()
++    extent = (0, 455, 0, 256)
++    ax.imshow(image, extent=extent)
++    im = ax.imshow(heat_map, cmap=plt.cm.afmhot, interpolation='nearest', alpha=0.5, extent=extent, vmin=p_min, vmax=p_max)
++    add_color_bar(ax, im)
++    ax.axis('off')
++
++
++# In[ ]:
++
++
++plot_image_with_heatmap(image, heat_map)
++
++
++# In[ ]:
++
++
++print ('Min probability of the class "green": %s' % results.min())
++
++
++# In[ ]:
++
++
++plot_image_with_heatmap(image, heat_map, 0, 1)
++
++
++# In[ ]:
++
++
++plt.imshow(patched_images[results.argmin()])
++plt.axis('off')
++
++
++# In[ ]:
++
++
++image_with_patch = patched_images[results.argmin()]
++
++
++# In[ ]:
++
++
++patched_images, patch_coords = create_patched_images(image_with_patch, patch_size=32, step=16)
++results = c.predict(patched_images, oversample=False)[:, cls].flatten()
++
++
++# In[ ]:
++
++
++heat_map = create_heatmap(image_with_patch.shape[:2], results, patch_coords, patch_size=32, step=16)
++
++
++# In[ ]:
++
++
++plot_image_with_heatmap(image, heat_map, 0, 1)
++
++
++# In[ ]:
++
++
++print ('Min probability of the class "green": %s' % results.min())
++
++
++# In[ ]:
++
++
++plt.imshow(patched_images[results.argmin()])
++plt.axis('off')
++
++
++# In[ ]:
++
++
++def show_probability_heatmap(image, cls, patch_size=16, step=16, p_min=None, p_max=None):
++    print ("Creating patched images...")
++    patched_images, patch_coords = create_patched_images(image, patch_size, step)
++    print ("Generating predictions...")
++    results = c.predict(patched_images, oversample=False)[:, cls].flatten()
++    heat_map = create_heatmap(image.shape[:2], results, patch_coords, patch_size, step)
++    plot_image_with_heatmap(image, heat_map, p_min, p_max)
++    
++    return patched_images, results, heat_map
++
++
++# In[ ]:
++
++
++image, cls = show_image_with_prediction('d6bf739b01fc54b80964545bb930f6c9.jpg')
++
++
++# In[ ]:
++
++
++patched_images, results, heat_map = show_probability_heatmap(image, cls, patch_size=16, step=16)
++
++
++# In[ ]:
++
++
++results.min()
++
++
++# In[ ]:
++
++
++plt.imshow(patched_images[results.argmin()])
++
