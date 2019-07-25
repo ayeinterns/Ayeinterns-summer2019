@@ -1,0 +1,8 @@
+git clone https://github.com/davidbrai/deep-learning-traffic-lights
+popd deep-learning-traffic-lights
+wget https://raw.githubusercontent.com/ayeinterns/ayeinterns-summer2019/master/Kush/tl-demo.diff
+git apply tl-demo.diff
+pushd analysis
+./analyze-tlight
+popd
+popd
