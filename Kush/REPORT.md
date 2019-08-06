@@ -20,7 +20,7 @@ Work Done:
   2. Run the setup file for VMWare Workstation Installation
   3. Follow the onscreen instructions to create a Virtual Machine through the Ubuntu ISO downloaded previously
 
-# Task assigned: Literature review on the various open source autonomous vehicle platforms
+Task assigned: Literature review on the various open source autonomous vehicle platforms
 
 Work done:
 
