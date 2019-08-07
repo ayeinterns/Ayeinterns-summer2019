@@ -1,13 +1,18 @@
 #from https://christopher5106.github.io/deep/learning/2015/09/04/Deep-learning-tutorial-on-Caffe-Technology.html
-
+# TODO : Go through the "TODO"s below every commands and do the needful, provide the references whereever needed.
 import numpy as np
+#TODO: explain the above command
+#TODO:What is numpy? write a brief note about it.
 import matplotlib.pyplot as plt
+#TODO:explain the above command 
+#TODO: What is matplotlib?
 from PIL import Image
+#this command is used for importing the image from PIL
 import caffe
-
+# imports caffe from?
 caffe.set_mode_cpu()
-
 net = caffe.Net('conv.prototxt', caffe.TEST)
+
 
 print(net.blobs['conv'].data.shape)
 
